@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace CropDeal_WebAPI.Models
 {
     public class Bank_Information
