@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+using CropDeal_WebAPI.Models;
 namespace CropDeal_WebAPI.Models
 {
     public class CropDetails

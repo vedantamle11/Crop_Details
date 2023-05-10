@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using CropDeal_WebAPI.Models;
 namespace CropDeal_WebAPI.Models
 {
     public class CropDisplay
@@ -18,7 +19,15 @@ namespace CropDeal_WebAPI.Models
 
         [Required]
         public string? Crop_Image { get; set; }
+        //----------------------------------------------------------------------------
 
-       
+
+        [ForeignKey("User")]
+        public int User_Id { get; set; }   
+        public User? User { get; set; }
+        //-----------------------------------------------
+        [ForeignKey("CropDetails")]
+        public int Crop_Details_Id { get; set; }
+        public CropDetails? CropDetails { get; set; } 
     }
 }

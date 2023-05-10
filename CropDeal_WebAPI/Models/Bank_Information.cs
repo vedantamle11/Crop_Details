@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using CropDeal_WebAPI.Models;
+
+
 namespace CropDeal_WebAPI.Models
 {
     public class Bank_Information
@@ -25,5 +29,9 @@ namespace CropDeal_WebAPI.Models
         [Display(Name ="IFSC")]
         public string? IFSC { get; set; }
         //-------------------------------------------------------------------------------------------------
+        [ForeignKey("User")]
+        public int User_Id { get; set; }
+        public User? User { get; set; } 
+
     }
 }
