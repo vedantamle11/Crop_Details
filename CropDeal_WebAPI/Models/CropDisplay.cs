@@ -18,5 +18,7 @@ namespace CropDeal_WebAPI.Models
 
         [Required]
         public string? Crop_Image { get; set; }
+
+       
     }
 }
