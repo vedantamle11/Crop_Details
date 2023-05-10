@@ -20,5 +20,6 @@ namespace CropDeal_WebAPI.Models
         [Required]
         public string? Admin_password { get; set;}
         //------------------------------------------------------------------
+      
     }
 }
