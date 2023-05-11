@@ -32,6 +32,6 @@ namespace CropDeal_WebAPI.Models
         [ForeignKey("User")]
         public int User_Id { get; set; }
         public User? User { get; set; } 
-
+        public int user { get; set; }   
     }
 }
