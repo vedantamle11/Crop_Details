@@ -4,6 +4,7 @@ using CropDeal_WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CropDeal_WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230513155951_First")]
+    partial class First
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,20 +103,14 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CropdetailCrop_Details_id")
-                        .HasColumnType("int");
-
                     b.Property<int>("User_id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Userid")
                         .HasColumnType("int");
 
                     b.HasKey("Crop_id");
 
-                    b.HasIndex("CropdetailCrop_Details_id");
+                    b.HasIndex("Crop_Details_id");
 
-                    b.HasIndex("Userid");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Crops");
                 });
@@ -142,6 +139,10 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Price")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.Property<int?>("Quantity")
                         .IsRequired()
                         .HasColumnType("int");
@@ -162,19 +163,12 @@ namespace CropDeal_WebAPI.Migrations
                     b.Property<int>("Crop_Details_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CropdetailCrop_Details_id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date_created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Payment_Mode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Price")
-                        .IsRequired()
-                        .HasColumnType("float");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -186,14 +180,11 @@ namespace CropDeal_WebAPI.Migrations
                     b.Property<int>("User_id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Userid")
-                        .HasColumnType("int");
-
                     b.HasKey("Invoice_id");
 
-                    b.HasIndex("CropdetailCrop_Details_id");
+                    b.HasIndex("Crop_Details_id");
 
-                    b.HasIndex("Userid");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Invoices");
                 });
@@ -206,6 +197,10 @@ namespace CropDeal_WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Userid"));
 
+                    b.Property<DateTime?>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Is_Active")
                         .HasColumnType("bit");
 
@@ -215,6 +210,14 @@ namespace CropDeal_WebAPI.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserAddress")
                         .IsRequired()
@@ -257,11 +260,15 @@ namespace CropDeal_WebAPI.Migrations
                 {
                     b.HasOne("CropDeal_WebAPI.Models.Cropdetail", "Cropdetail")
                         .WithMany()
-                        .HasForeignKey("CropdetailCrop_Details_id");
+                        .HasForeignKey("Crop_Details_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CropDeal_WebAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("Userid");
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cropdetail");
 
@@ -272,11 +279,15 @@ namespace CropDeal_WebAPI.Migrations
                 {
                     b.HasOne("CropDeal_WebAPI.Models.Cropdetail", "Cropdetail")
                         .WithMany()
-                        .HasForeignKey("CropdetailCrop_Details_id");
+                        .HasForeignKey("Crop_Details_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CropDeal_WebAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("Userid");
+                        .HasForeignKey("User_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cropdetail");
 

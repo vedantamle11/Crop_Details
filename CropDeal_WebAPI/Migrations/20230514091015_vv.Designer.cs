@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CropDeal_WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230510185344_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230514091015_vv")]
+    partial class vv
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace CropDeal_WebAPI.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("CropDeal_WebAPI.Models.Bank_Information", b =>
+            modelBuilder.Entity("CropDeal_WebAPI.Models.Bankdetails", b =>
                 {
                     b.Property<int>("BankDetail_id")
                         .ValueGeneratedOnAdd()
@@ -62,9 +62,9 @@ namespace CropDeal_WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BankDetail_id"));
 
-                    b.Property<int?>("Bank_Account_No")
+                    b.Property<string>("Bank_Account_No")
                         .IsRequired()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Bank_Name")
                         .IsRequired()
@@ -74,23 +74,54 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_Id")
+                    b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("BankDetail_id");
 
-                    b.HasIndex("User_Id");
+                    b.HasIndex("User_id");
 
-                    b.ToTable("BankInformation");
+                    b.ToTable("Bankdetails");
                 });
 
-            modelBuilder.Entity("CropDeal_WebAPI.Models.CropDetails", b =>
+            modelBuilder.Entity("CropDeal_WebAPI.Models.Crop", b =>
                 {
-                    b.Property<int>("Crop_Details_Id")
+                    b.Property<int>("Crop_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Crop_Details_Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Crop_id"));
+
+                    b.Property<int>("Crop_Details_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Crop_Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Crop_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("User_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Crop_id");
+
+                    b.HasIndex("Crop_Details_id");
+
+                    b.HasIndex("User_id");
+
+                    b.ToTable("Crops");
+                });
+
+            modelBuilder.Entity("CropDeal_WebAPI.Models.Cropdetail", b =>
+                {
+                    b.Property<int>("Crop_Details_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Crop_Details_id"));
 
                     b.Property<string>("Crop_Details_Description")
                         .IsRequired()
@@ -116,40 +147,9 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.HasKey("Crop_Details_Id");
+                    b.HasKey("Crop_Details_id");
 
-                    b.ToTable("CropDetails");
-                });
-
-            modelBuilder.Entity("CropDeal_WebAPI.Models.CropDisplay", b =>
-                {
-                    b.Property<int>("Crop_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Crop_id"));
-
-                    b.Property<int>("Crop_Details_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Crop_Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Crop_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("User_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Crop_id");
-
-                    b.HasIndex("Crop_Details_Id");
-
-                    b.HasIndex("User_Id");
-
-                    b.ToTable("CropDisplays");
+                    b.ToTable("Cropdetails");
                 });
 
             modelBuilder.Entity("CropDeal_WebAPI.Models.Invoice", b =>
@@ -160,7 +160,7 @@ namespace CropDeal_WebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Invoice_id"));
 
-                    b.Property<int>("Crop_Details_Id")
+                    b.Property<int>("Crop_Details_id")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date_created")
@@ -177,29 +177,25 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("User_Id")
+                    b.Property<int>("User_id")
                         .HasColumnType("int");
 
                     b.HasKey("Invoice_id");
 
-                    b.HasIndex("Crop_Details_Id");
+                    b.HasIndex("Crop_Details_id");
 
-                    b.HasIndex("User_Id");
+                    b.HasIndex("User_id");
 
                     b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("CropDeal_WebAPI.Models.User", b =>
                 {
-                    b.Property<int>("User_Id")
+                    b.Property<int>("Userid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_Id"));
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Userid"));
 
                     b.Property<bool>("Is_Active")
                         .HasColumnType("bit");
@@ -211,85 +207,77 @@ namespace CropDeal_WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("User_Address")
+                    b.Property<string>("UserAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User_Contact")
+                    b.Property<string>("UserContact")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User_Email")
+                    b.Property<string>("UserEmail_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User_Name")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("User_Roles")
+                    b.Property<string>("UserRoles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("User_Id");
+                    b.HasKey("Userid");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CropDeal_WebAPI.Models.Bank_Information", b =>
+            modelBuilder.Entity("CropDeal_WebAPI.Models.Bankdetails", b =>
                 {
                     b.HasOne("CropDeal_WebAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("User_Id")
+                        .HasForeignKey("User_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CropDeal_WebAPI.Models.CropDisplay", b =>
+            modelBuilder.Entity("CropDeal_WebAPI.Models.Crop", b =>
                 {
-                    b.HasOne("CropDeal_WebAPI.Models.CropDetails", "CropDetails")
+                    b.HasOne("CropDeal_WebAPI.Models.Cropdetail", "Cropdetail")
                         .WithMany()
-                        .HasForeignKey("Crop_Details_Id")
+                        .HasForeignKey("Crop_Details_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CropDeal_WebAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("User_Id")
+                        .HasForeignKey("User_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CropDetails");
+                    b.Navigation("Cropdetail");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("CropDeal_WebAPI.Models.Invoice", b =>
                 {
-                    b.HasOne("CropDeal_WebAPI.Models.CropDetails", "CropDetails")
+                    b.HasOne("CropDeal_WebAPI.Models.Cropdetail", "Cropdetail")
                         .WithMany()
-                        .HasForeignKey("Crop_Details_Id")
+                        .HasForeignKey("Crop_Details_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CropDeal_WebAPI.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("User_Id")
+                        .HasForeignKey("User_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CropDetails");
+                    b.Navigation("Cropdetail");
 
                     b.Navigation("User");
                 });

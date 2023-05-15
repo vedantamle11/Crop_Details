@@ -9,44 +9,40 @@ namespace CropDeal_WebAPI.Models
     {
         //------------------------------------------------------------------------------------------------
         [Key]
-        public int User_Id { get; set; }
+        public int Userid { get; set; }
         //--------------------------------------------------------------------------------------------------
 
         [Required(ErrorMessage = "Please Enter Your Name")]
         [StringLength(50, MinimumLength = 3)]
-        public string? User_Name { get; set; }
+        public string? UserName { get; set; }
         //---------------------------------------------------------------------------------------------------
 
         [Required(ErrorMessage = "Please Enter Your E-mail")]
         [EmailAddress(ErrorMessage = "Please Enter Valid E-mail Address")]
-        public string? User_Email { get; set; }
+        public string? UserEmail_id { get; set; }
         //-----------------------------------------------------------------------------------------------------
 
         [Required(ErrorMessage = "Please Enter The Password")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
-        [Required]
+       /* [Required]
         public byte[]? PasswordHash { get; set; }
         [Required]
-        public byte[]? PasswordSalt { get; set; }
+        public byte[]? PasswordSalt { get; set; }*/
         //-----------------------------------------------------------------------------------------------------
         [Required(ErrorMessage ="Please Enter The Contact Number")]
         [RegularExpression(@"^[0-9]{10}$",ErrorMessage ="Please Enter Valid Contact Number")]
         [Display(Name ="Contact Number")]
-        public string? User_Contact { get; set; }
+        public string? UserContact { get; set; }
         //-----------------------------------------------------------------------------------------------------
 
-        [Required(ErrorMessage ="Please ENter Your Date of Birth")]
-        [DataType(DataType.Date)] 
-        public DateTime? DateOfBirth { get; set;}
-        //-------------------------------------------------------------------------------------------------------
-
+      
         [Required(ErrorMessage ="Please Enter Your Addres")]
-        public string? User_Address { get; set; }
+        public string? UserAddress { get; set; }
         //---------------------------------------------------------------------------------------------------------
 
         [Required(ErrorMessage = "Please Select Your Role")]
-        public string? User_Roles { get; set; } = string.Empty;
+        public string? UserRoles { get; set; } = string.Empty;
         //----------------------------------------------------------------------------------------------------------
 
 

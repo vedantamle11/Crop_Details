@@ -14,8 +14,8 @@ namespace CropDeal_WebAPI.Data
 
 
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<CropDisplay> CropDisplays { get; set; }
-        public DbSet<CropDetails> CropDetails { get; set; }
-        public DbSet<Bank_Information> BankInformation { get; set; }
+        public DbSet<Crop> Crops { get; set; }
+        public DbSet<Cropdetail> Cropdetails { get; set; }
+        public DbSet<Bankdetails> Bankdetails { get; set; }
     }
 }
