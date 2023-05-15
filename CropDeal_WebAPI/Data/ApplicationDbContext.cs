@@ -11,8 +11,6 @@ namespace CropDeal_WebAPI.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
-
-
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Crop> Crops { get; set; }
         public DbSet<Cropdetail> Cropdetails { get; set; }

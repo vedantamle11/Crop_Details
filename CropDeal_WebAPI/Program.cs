@@ -11,7 +11,7 @@ builder.Services.AddScoped<IInvoice, InvoiceRepository>();
 builder.Services.AddScoped<ICropdetail,CropdetailRepository>();
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Learn more about configuring Swagger/OpenAPI at 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

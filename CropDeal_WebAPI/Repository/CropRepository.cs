@@ -7,29 +7,54 @@ namespace CropDeal_WebAPI.Repository
 {
     public class CropRepository : ICrop
     {
-        Task<Crop> ICrop.CreateCrop(Crop crop)
+        private readonly ApplicationDbContext _context;
+
+        public CropRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-       Task<Crop> ICrop.DeleteCrop(int id)
+        public async Task<Crop> CreateCrop(Crop crop)
         {
-            throw new NotImplementedException();
+            _context.Crops.Add(crop);
+            await _context.SaveChangesAsync();
+            return crop;
         }
 
-        Task<Crop> ICrop.GetCrop(int id)
+        public async Task<List<Crop>> GetCrops()
         {
-            throw new NotImplementedException();
+            return await _context.Crops.ToListAsync();
         }
 
-        Task<List<Crop>> ICrop.GetCrops()
+        public async Task<Crop> GetCrop(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Crops.FindAsync(id);
         }
 
-        Task<Crop> ICrop.UpdateCrop(int id, Crop crop)
+        public async Task<Crop> UpdateCrop(int id, Crop crop)
         {
-            throw new NotImplementedException();
+            var existingCrop = await _context.Crops.FindAsync(id);
+            if (existingCrop != null)
+            {
+                existingCrop.Crop_name = crop.Crop_name;
+                existingCrop.Crop_id = crop.Crop_id;
+                existingCrop.Crop_Image = crop.Crop_Image;
+                await _context.SaveChangesAsync();
+            }
+            return existingCrop;
+        }
+
+        public async Task<Crop> DeleteCrop(int id)
+        {
+            var existingCrop = await _context.Crops.FindAsync(id);
+            if (existingCrop != null)
+            {
+                _context.Crops.Remove(existingCrop);
+                await _context.SaveChangesAsync();
+            }
+            return existingCrop;
         }
     }
+
 }
+

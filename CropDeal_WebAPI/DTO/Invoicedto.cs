@@ -5,6 +5,6 @@
         public int Quantity { get; set; }
         public double Price { get; set;}
         public string? Payment_Mode { get; set; }
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; } = "Payment Pending";
     }
 }

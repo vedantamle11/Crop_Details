@@ -36,40 +36,6 @@ namespace CropDeal_WebAPI.Controllers
             return Ok(cropdetailById);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Cropdetail>> Post(Cropdetail cropdetailToAdd)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var createdCropdetail = await cropdetail.CreateCrop_acc(cropdetailToAdd);
-            return CreatedAtAction(nameof(Get), new { id = createdCropdetail.Crop_Details_id }, createdCropdetail);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Cropdetail>> Put(int id, Cropdetail cropdetailToUpdate)
-        {
-            var updatedCropdetail = await cropdetail.UpdateCropdetail(id, cropdetailToUpdate);
-            if (updatedCropdetail == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(updatedCropdetail);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Cropdetail>> Delete(int id)
-        {
-            var deletedCropdetail = await cropdetail.DeleteCrop_acc(id);
-            if (deletedCropdetail == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(deletedCropdetail);
-        }
+       
     }
 }
