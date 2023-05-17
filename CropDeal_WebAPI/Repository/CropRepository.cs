@@ -7,53 +7,67 @@ namespace CropDeal_WebAPI.Repository
 {
     public class CropRepository : ICrop
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public CropRepository(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        public async Task<Crop> CreateCrop(Crop crop)
+        public async Task<Crop> CreateCrop(Crop user)
         {
-            _context.Crops.Add(crop);
-            await _context.SaveChangesAsync();
-            return crop;
-        }
-
-        public async Task<List<Crop>> GetCrops()
-        {
-            return await _context.Crops.ToListAsync();
-        }
-
-        public async Task<Crop> GetCrop(int id)
-        {
-            return await _context.Crops.FindAsync(id);
-        }
-
-        public async Task<Crop> UpdateCrop(int id, Crop crop)
-        {
-            var existingCrop = await _context.Crops.FindAsync(id);
-            if (existingCrop != null)
-            {
-                existingCrop.Crop_name = crop.Crop_name;
-                existingCrop.Crop_id = crop.Crop_id;
-                existingCrop.Crop_Image = crop.Crop_Image;
-                await _context.SaveChangesAsync();
-            }
-            return existingCrop;
+            await context.Crops.AddAsync(user);
+            await context.SaveChangesAsync();
+            return user;
         }
 
         public async Task<Crop> DeleteCrop(int id)
         {
-            var existingCrop = await _context.Crops.FindAsync(id);
-            if (existingCrop != null)
+            var user = await context.Crops.FindAsync(id);
+            if (user == null)
             {
-                _context.Crops.Remove(existingCrop);
-                await _context.SaveChangesAsync();
+                return null;
             }
+            context.Crops.Remove(user); 
+            await context.SaveChangesAsync();   
+            return user;
+        }
+
+
+        public async Task<Crop> GetCrop(int id)
+        {
+            var user = await context.Crops.FindAsync(id);
+            if(user== null)
+            {
+                return null;
+            }
+            return user;
+        }
+
+
+        public async Task<IEnumerable<Crop>> GetCrops()
+        {
+            return await context.Crops.ToListAsync();
+        }
+
+        
+
+        public async Task<Crop> UpdateCrop(int id, Crop user)
+        {
+            var existingCrop = await context.Crops.FindAsync(id);
+            if (existingCrop == null)
+            {
+                return null;
+             
+            }
+            existingCrop.Crop_name = user.Crop_name;
+            existingCrop.Cropid =id;
+            existingCrop.Crop_Image = user.Crop_Image;
+            await context.SaveChangesAsync();
             return existingCrop;
         }
+
+        
     }
 
 }

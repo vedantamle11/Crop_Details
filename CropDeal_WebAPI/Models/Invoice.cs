@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using CropDeal_WebAPI.Models;
 
 namespace CropDeal_WebAPI.Models
@@ -28,13 +29,26 @@ namespace CropDeal_WebAPI.Models
         [Required]
         public DateTime Date_created { get; set; }
         //--------------------------------------------------------------------------------------
-       // [ForeignKey("User")]
+      /* // [ForeignKey("User")]
         public int User_id { get; set; }
-        public User? User { get; set; }
+
+        [JsonIgnore]
+        public User User { get; set; }
         //------------------------------------------------------------------------------------
-       // [ForeignKey("Cropdetail")]
+        [ForeignKey("Cropdetail")]
         public int Crop_Details_id { get;set; }
-        public Cropdetail? Cropdetail { get; set; }
+
+        [JsonIgnore]
+        public Cropdetail Cropdetail { get; set; }
+        */
+        public int User_id { get; set; }
+        [JsonIgnore]
+        public User User { get; set; }
+
+        public int Crop_Detaila_id { get; set; }
+        [JsonIgnore]
+        public Cropdetail Cropdetail { get; set; }  
+
         
     }
 }

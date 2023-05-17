@@ -18,51 +18,58 @@ namespace CropDeal_WebAPI.Repository
             this.context = context;
         }
 
-        public async Task<Cropdetail> CreateCrop_acc(Cropdetail cropdetail)
+        public async Task<Cropdetail> CreateCrop(Cropdetail user)
         {
-            await context.Cropdetails.AddAsync(cropdetail);
+            await context.Cropdetails.AddAsync(user);
             await context.SaveChangesAsync();
-            return cropdetail;
+            return user;
         }
 
-        public async Task<Cropdetail> DeleteCrop_acc(int id)
+        public async Task<Cropdetail> DeleteCropdetail(int id)
         {
-            var cropdetail = await context.Cropdetails.FindAsync(id);
-            if (cropdetail == null)
+            var user = await context.Cropdetails.FindAsync(id);
+            if (user == null)
             {
                 return null;
             }
 
-            context.Cropdetails.Remove(cropdetail);
+            context.Cropdetails.Remove(user);
             await context.SaveChangesAsync();
-            return cropdetail;
+            return user;
         }
 
         public async Task<Cropdetail> GetCropdetail(int id)
         {
-            var cropdetail = await context.Cropdetails.FindAsync(id);
-            return cropdetail;
+            var user = await context.Cropdetails.FindAsync(id);
+            if(user==null)
+            {
+                return null;
+            }
+            return user;
         }
 
-        public async Task<List<Cropdetail>> GetCropdetails()
+        public async Task<IEnumerable<Cropdetail>> GetCropdetails()
         {
-            var cropdetails = await context.Cropdetails.ToListAsync();
-            return cropdetails;
+            return await context.Cropdetails.ToListAsync();
+            
         }
 
-        public async Task<Cropdetail> UpdateCropdetail(int id, Cropdetail cropdetail)
+        public async Task<Cropdetail> UpdateCropdetail(int id, Cropdetail user)
         {
             var existingCropdetail = await context.Cropdetails.FindAsync(id);
 
             if (existingCropdetail == null)
-           
+            {
                 return null;
+            }
+           
             existingCropdetail.Crop_Details_id= id;
-            existingCropdetail.Crop_Name = cropdetail.Crop_Name;
-            existingCropdetail.Crop_Details_Description = cropdetail.Crop_Details_Description;
-            existingCropdetail.Crop_Type = cropdetail.Crop_Type;
-            existingCropdetail.Quantity = cropdetail.Quantity;
-            existingCropdetail.Location = cropdetail.Location;
+            existingCropdetail.Crop_Name = user.Crop_Name;
+            existingCropdetail.Crop_Details_Description = user.Crop_Details_Description;
+            existingCropdetail.Crop_Type = user.Crop_Type;
+            existingCropdetail.Quantity = user.Quantity;
+            existingCropdetail.Location = user.Location;
+            existingCropdetail.Price= user.Price;   
 
             await context.SaveChangesAsync();
 

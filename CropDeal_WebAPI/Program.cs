@@ -8,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
 builder.Services.AddScoped<IUser, UserRepository>(); // Register IUser and UserRepository
 builder.Services.AddScoped<IInvoice, InvoiceRepository>();
-builder.Services.AddScoped<ICropdetail,CropdetailRepository>();
+builder.Services.AddScoped<ICropdetail, CropdetailRepository>();
+builder.Services.AddScoped<IAdmin, AdminRepository>();
+builder.Services.AddScoped<ICrop,CropRepository>();
+builder.Services.AddScoped<IBankdetail,BankdetailsRepository>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at 

@@ -18,13 +18,13 @@ namespace CropDeal_WebAPI.Repository
             await context.SaveChangesAsync();
             return user;
         }
-        public async Task<List<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
             return await context.Users.ToListAsync();
         }
         public async Task<User> DeleteUser(int id)
         {
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Userid == id);
+            var user = await context.Users.FirstOrDefaultAsync(p => p.Userid == id);
             if (user == null)
             {
                 return null;
@@ -34,7 +34,7 @@ namespace CropDeal_WebAPI.Repository
             return user;
         }
 
-        public async Task<User> UpdateUser(int id, User i)
+        public async Task<User> UpdateUser(int id, User a)
         {
             var user = await context.Users.FindAsync(id);
             if (user == null)
@@ -42,14 +42,14 @@ namespace CropDeal_WebAPI.Repository
                 return null;
             }
             user.Userid = id;
-            user.UserName = i.UserName;
-            user.Password = i.Password;
-            user.UserEmail_id = i.UserEmail_id;
-            user.UserContact = i.UserContact;
+            user.UserName = a.UserName;
+            user.Password = a.Password;
+            user.UserEmail_id = a.UserEmail_id;
+            user.UserContact = a.UserContact;
             
-            user.UserAddress = i.UserAddress;
-            user.UserRoles = i.UserRoles;
-            user.Is_Suscribed = i.Is_Suscribed;
+            user.UserAddress = a.UserAddress;
+            user.UserRoles = a.UserRoles;
+            user.Is_Suscribed = a.Is_Suscribed;
             await context.SaveChangesAsync();
             return user;
         }

@@ -17,7 +17,7 @@ namespace CropDeal_WebAPI.Controllers
         {
             this.repo = repo;
         }
-        //Repo DTO------
+        //---------------Repo DTO------
         [HttpPost]
         public async Task<ActionResult<Invoice>>PostInvoice(Invoicedto invoiced)
         {
@@ -37,15 +37,15 @@ namespace CropDeal_WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Invoice>> GetInvoice()
+        public async Task<ActionResult<Invoice>> GetInvoices()
         {
-            var invoiceslist=await repo.GetInvoices();  
-            if(invoiceslist== null)
+            var invoices=await repo.GetInvoices();  
+            if(invoices== null)
             {
                 return BadRequest();
             }
             var invoicelist = new List<Invoice>();
-            foreach(var i in invoiceslist) 
+            foreach(var i in invoices) 
             {
                 invoicelist.Add(new Invoice()
                 {
@@ -57,8 +57,10 @@ namespace CropDeal_WebAPI.Controllers
                     Date_created=i.Date_created
                 });
             }
-            return Ok(invoiceslist);
+            return Ok(invoicelist);
         }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {
@@ -69,20 +71,7 @@ namespace CropDeal_WebAPI.Controllers
             }
             return Ok(invoice) ;
         }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Invoice>> UpdateInvoice(int id, Invoice invoice)
-        {
-            if(invoice == null)
-            {
-                return NotFound();    
-            }
-            var database_invoice=repo.UpdateInvoice(id, invoice);
-            if(database_invoice==null) 
-            {
-                return NotFound();
-            }
-            return Ok();
-        }
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult<Invoice>> DeleteInvoice(int id)
         {

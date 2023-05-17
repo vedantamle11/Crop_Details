@@ -1,11 +1,12 @@
 ﻿using CropDeal_WebAPI.Data;
+using CropDeal_WebAPI.DTO;
 using CropDeal_WebAPI.Interface;
 using CropDeal_WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CropDeal_WebAPI.Repository
 {
-    public class BankdetailsRepository : IBankdetails
+    public class BankdetailsRepository : IBankdetail
     {
         private readonly ApplicationDbContext context;
 
@@ -14,17 +15,22 @@ namespace CropDeal_WebAPI.Repository
             this.context = context;
         }
 
-        public async Task<Bankdetails> CreateBank_acc(Bankdetails user)
+        public async Task<Bankdetail> CreateBank_acc(Bankdetaildto user)
         {
-            await context.Bankdetails.AddAsync(user);
+            var Bank=new Bankdetail();
+            Bank.Bank_Name = user.Bank_Name;
+            Bank.Bank_Account_No = user.Bank_Account_No;
+            Bank.IFSC=user.IFSC;
+            Bank.User_id = user.Userid;
+            await context.Bankdetails.AddAsync(Bank);
             await context.SaveChangesAsync();
 
-            return user;
+            return Bank;
         }
 
-        public async Task<Bankdetails> DeleteBank_acc(int id)
+        public async Task<Bankdetail> DeleteBank_acc(int id)
         {
-            var user = await context.Bankdetails.FirstOrDefaultAsync(x=>x.BankDetail_id==id);
+            var user = await context.Bankdetails.FirstOrDefaultAsync(p=>p.BankDetail_id==id);
 
             if (user == null)
             {
@@ -36,7 +42,7 @@ namespace CropDeal_WebAPI.Repository
             return user;
         }
 
-        public async Task<Bankdetails> GetBankdetails(int id)
+        public async Task<Bankdetail> GetBankdetail(int id)
         {
             var user = await context.Bankdetails.FindAsync(id);
             if(user == null) 
@@ -45,12 +51,17 @@ namespace CropDeal_WebAPI.Repository
             }
             return user;
         }
-        public async Task<List<Bankdetails>> GetBankdetails()
+        public async Task<IEnumerable<Bankdetail>> GetBankdetails()
         {
             return await context.Bankdetails.ToListAsync();
         }
 
-        public async Task<Bankdetails> UpdateBankdetails(int id, Bankdetails user)
+        public async Task<IEnumerable<Bankdetail>> GetUserwithBankdetails()
+        {
+            return await context.Bankdetails.Include(p=>p.User).ToListAsync();
+        }
+
+        public async Task<Bankdetail> UpdateBankdetail(int id, Bankdetail user)
         {
             var bankDetailsToUpdate = await context.Bankdetails.FindAsync(id);
 

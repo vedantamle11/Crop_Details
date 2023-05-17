@@ -42,32 +42,18 @@ namespace CropDeal_WebAPI.Repository
         public async Task<Invoice> GetInvoice(int id)
         {
             var invoice = await context.Invoices.FindAsync(id);
-            return invoice;
-        }
-
-        public async Task<List<Invoice>> GetInvoices()
-        {
-            var invoices = await context.Invoices.ToListAsync();
-            return invoices;
-        }
-
-        public async Task<Invoice> UpdateInvoice(int id, Invoice invoice)
-        {
-            var database_invoice = await context.Invoices.FindAsync(id);
-            if (database_invoice == null)
+            if(invoice==null)
             {
                 return null;
             }
-
-            database_invoice.Quantity = invoice.Quantity;
-            database_invoice.Price = invoice.Price;
-            database_invoice.Payment_Mode = invoice.Payment_Mode;
-            database_invoice.Status = invoice.Status;
-            database_invoice.Date_created = invoice.Date_created;
-
-            await context.SaveChangesAsync();
-
-            return database_invoice;
+            return invoice;
         }
+
+        public async Task<IEnumerable<Invoice>> GetInvoices()
+        {
+            return await context.Invoices.ToListAsync();
+            
+        }
+  
     }
 }

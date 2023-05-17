@@ -24,10 +24,10 @@ namespace CropDeal_WebAPI.Models
         [Required]
         public int? Quantity { get; set; }
         //----------------------------------------------------------------------------------------
-       /* [Required]
-        public int? Price { get; set; }
+        [Required]
+        public double Price { get; set; }
         //------------------------------------------------------------------------------------------
-        */     
+           
         [Required]
         public string? Location { get; set; }  
         //-------------------------------------------------------------------------------------------

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using CropDeal_WebAPI.Models;
 
 namespace CropDeal_WebAPI.Models
 {
-    public class Bankdetails
+    public class Bankdetail
     {
         //---------------------------------------------------------------------------------------------
         [Key]
@@ -20,7 +21,7 @@ namespace CropDeal_WebAPI.Models
         [Required(ErrorMessage = "Please Enter Your Bank Account Number")]
         [RegularExpression(@"^([0-9]{9,18})$", ErrorMessage = "Please Enter Valid Bank Account Number")]
         [Display(Name = "AccountNumber")]
-       
+    
         // changed data type to string
         public string? Bank_Account_No { get; set; } 
 
@@ -31,8 +32,15 @@ namespace CropDeal_WebAPI.Models
         [Display(Name = "IFSC")]
         public string? IFSC { get; set; }
         //-------------------------------------------------------------------------------------------------
-        //[ForeignKey("User")]
+       /* //[ForeignKey("User")]
         public int User_id { get; set; } // renamed property to match foreign key naming convention
+
+        //[JsonIgnore]
         public User? User { get; set; }
+       */
+       public int User_id { get; set; }
+        [JsonIgnore]
+
+        public User? User { get; set; } 
     }
 }

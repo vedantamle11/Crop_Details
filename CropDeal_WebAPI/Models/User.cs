@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Text.Json.Serialization;
 using CropDeal_WebAPI.Models;
 
 namespace CropDeal_WebAPI.Models
@@ -48,6 +48,17 @@ namespace CropDeal_WebAPI.Models
 
         public bool Is_Suscribed { get; set; } = false;
         public bool Is_Active { get; set; } = false;
+
+        //---------------------------------------------------
+
+        [JsonIgnore]
+        public List<Crop> Crops { get; set; }
+
+        [JsonIgnore]
+        public List<Invoice> Invoices { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<Bankdetail> Bankdetails { get; set; }
 
     }
 }
