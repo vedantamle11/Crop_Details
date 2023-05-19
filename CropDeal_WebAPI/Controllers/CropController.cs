@@ -29,17 +29,15 @@ namespace CropDeal_WebAPI.Controllers
 
             var crop = new Crop
             {
+                User_id = cropdto.User_id,
+
                 Crop_name = cropdto.Crop_name,
                 Crop_Image = cropdto.Crop_Image
             };
 
             var createdCrop = await cropRepository.CreateCrop(crop);
-            return CreatedAtAction(nameof(GetCrop), new { id = createdCrop.Cropid }, createdCrop);
+            return Ok();
         }
-        
-
-        
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Crop>>> GetCrops()

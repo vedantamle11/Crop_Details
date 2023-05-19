@@ -76,24 +76,47 @@ namespace Crop_Deal1.Controllers
             return NoContent();
         }
 
-        
 
 
-        
+
         // POST: api/Cropdetail
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Cropdetail>> PostCropdetail(Cropdetail cropdetail)
         {
-            if (context.Cropdetails == null)
+            if (!ModelState.IsValid)
             {
-                return Problem("Entity set 'ApplicationDbContext.Cropdetails' is null.");
+                return BadRequest(ModelState);
             }
-            context.Cropdetails.Add(cropdetail);
-            await context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCropdetail", new { id = cropdetail.Crop_Details_id }, cropdetail);
+            try
+            {
+                context.Cropdetails.Add(cropdetail);
+                await context.SaveChangesAsync();
+
+                return CreatedAtAction("GetCropdetail", new { id = cropdetail.Crop_Details_id }, cropdetail);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error occurred while saving the crop detail. Please try again.");
+            }
         }
+
+        // POST: api/Cropdetail
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /* [HttpPost]
+         public async Task<ActionResult<Cropdetail>> PostCropdetail(Cropdetail cropdetail)
+         {
+             if (context.Cropdetails == null)
+             {
+                 return Problem("Entity set 'ApplicationDbContext.Cropdetails' is null.");
+             }
+             context.Cropdetails.Add(cropdetail);
+             await context.SaveChangesAsync();
+
+             return CreatedAtAction("GetCropdetail", new { Cropid = cropdetail.Crop_Details_id }, cropdetail);
+         }
+        */
 
         // DELETE: api/Cropdetail/5
         [HttpDelete("{id}")]

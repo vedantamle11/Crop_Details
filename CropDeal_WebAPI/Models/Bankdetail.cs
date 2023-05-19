@@ -31,16 +31,7 @@ namespace CropDeal_WebAPI.Models
         [RegularExpression(@"^([A-Za-z]{4}[0][A-Za-z0-9]{6})$", ErrorMessage = "Please Enter Valid IFSC Code")] // fixed regex pattern
         [Display(Name = "IFSC")]
         public string? IFSC { get; set; }
-        //-------------------------------------------------------------------------------------------------
-       /* //[ForeignKey("User")]
-        public int User_id { get; set; } // renamed property to match foreign key naming convention
 
-        //[JsonIgnore]
-        public User? User { get; set; }
-       */
-       public int User_id { get; set; }
-        [JsonIgnore]
-
-        public User? User { get; set; } 
+        
     }
 }

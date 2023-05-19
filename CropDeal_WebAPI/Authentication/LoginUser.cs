@@ -1,4 +1,4 @@
-﻿/*namespace CropDeal_WebAPI.Authentication
+﻿namespace CropDeal_WebAPI.Authentication
 {
     public class LoginUser
     {
@@ -6,4 +6,4 @@
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }    
     }
-}*/
+}

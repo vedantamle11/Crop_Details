@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Text.Json.Serialization;
 using CropDeal_WebAPI.Models;
 namespace CropDeal_WebAPI.Models
 {
@@ -29,7 +29,12 @@ namespace CropDeal_WebAPI.Models
         //------------------------------------------------------------------------------------------
            
         [Required]
-        public string? Location { get; set; }  
+        public string? Location { get; set; }
         //-------------------------------------------------------------------------------------------
+       
+        [JsonIgnore]
+        public Crop crop { get; set; }
+
+        public int CropId { get; set; }
     }
 }

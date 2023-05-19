@@ -1,4 +1,4 @@
-﻿/*namespace CropDeal_WebAPI.Authentication
+﻿namespace CropDeal_WebAPI.Authentication
 {
     public class Logindto
     {
@@ -6,4 +6,3 @@
         public string Password { get; set; } = string.Empty;    
     }
 }
-*/

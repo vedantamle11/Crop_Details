@@ -2,6 +2,8 @@
 using CropDeal_WebAPI.Models;
 using CropDeal_WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CropDeal_WebAPI.Repository
 {
@@ -14,61 +16,47 @@ namespace CropDeal_WebAPI.Repository
             this.context = context;
         }
 
-        public async Task<Crop> CreateCrop(Crop user)
+        public async Task<Crop> CreateCrop(Crop crop)
         {
-            await context.Crops.AddAsync(user);
+            await context.Crops.AddAsync(crop);
             await context.SaveChangesAsync();
-            return user;
+            return crop;
         }
 
         public async Task<Crop> DeleteCrop(int id)
         {
-            var user = await context.Crops.FindAsync(id);
-            if (user == null)
+            var crop = await context.Crops.FindAsync(id);
+            if (crop == null)
             {
                 return null;
             }
-            context.Crops.Remove(user); 
-            await context.SaveChangesAsync();   
-            return user;
+            context.Crops.Remove(crop);
+            await context.SaveChangesAsync();
+            return crop;
         }
-
 
         public async Task<Crop> GetCrop(int id)
         {
-            var user = await context.Crops.FindAsync(id);
-            if(user== null)
-            {
-                return null;
-            }
-            return user;
+            return await context.Crops.FindAsync(id);
         }
-
 
         public async Task<IEnumerable<Crop>> GetCrops()
         {
             return await context.Crops.ToListAsync();
         }
 
-        
-
-        public async Task<Crop> UpdateCrop(int id, Crop user)
+        public async Task<Crop> UpdateCrop(int id, Crop crop)
         {
             var existingCrop = await context.Crops.FindAsync(id);
             if (existingCrop == null)
             {
                 return null;
-             
             }
-            existingCrop.Crop_name = user.Crop_name;
-            existingCrop.Cropid =id;
-            existingCrop.Crop_Image = user.Crop_Image;
+            
+            existingCrop.Crop_name = crop.Crop_name;
+            existingCrop.Crop_Image = crop.Crop_Image;
             await context.SaveChangesAsync();
             return existingCrop;
         }
-
-        
     }
-
 }
-

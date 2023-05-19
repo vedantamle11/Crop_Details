@@ -9,7 +9,7 @@ namespace CropDeal_WebAPI.Models
         //------------------------------------------------------------------------------------------------
         [Key]
         [Required]
-        public int Cropid { get; set; }
+        public int Crop_id { get; set; }
 
         //-------------------------------------------------------------------------------------------------
         [Required(ErrorMessage = "Please Enter The Crop Name")]
@@ -22,19 +22,9 @@ namespace CropDeal_WebAPI.Models
         public string? Crop_Image { get; set; }
         //----------------------------------------------------------------------------
 
-
-        // [ForeignKey("User")]
-        public int User_id { get; set; }
-
         [JsonIgnore]
-        public User User { get; set; }
-        //-----------------------------------------------
-        // [ForeignKey("Cropdetail")]
-        public int Crop_Details_id { get; set; }
+        public IEnumerable<Cropdetail> Cropdetail { get; set; }
 
-        [JsonIgnore]
-        public Cropdetail Cropdetail { get; set; }
     }
-
 
 }
